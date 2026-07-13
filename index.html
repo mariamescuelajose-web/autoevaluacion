@@ -293,15 +293,29 @@
     .stats-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:18px}
     .stats-box{padding:20px;border:1px solid var(--linea);border-radius:18px;background:#fff}
     .stats-box h4{margin:0 0 15px;color:var(--vino-3);font-size:1.05rem}
-    .stats-dimension-list,.stats-distribution{display:grid;gap:12px}
+    .stats-dimension-list,.stats-distribution{display:grid;gap:14px}
     .stats-dimension-row{display:grid;grid-template-columns:minmax(150px,1fr) 2fr auto;gap:10px;align-items:center}
     .stats-dimension-label{font-size:.84rem;font-weight:780;line-height:1.3}
-    .stats-track{height:11px;border-radius:999px;background:#eee5df;overflow:hidden}
+    .stats-track{height:13px;border-radius:999px;background:#eee5df;overflow:hidden;box-shadow:inset 0 1px 2px rgba(75,13,33,.08)}
     .stats-fill{height:100%;width:0;border-radius:inherit;background:linear-gradient(90deg,var(--oro),var(--vino));transition:width .8s ease}
-    .stats-value{min-width:52px;text-align:right;color:var(--vino);font-size:.84rem;font-weight:850}
-    .distribution-row{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;padding:11px 12px;border-radius:13px;background:var(--crema)}
-    .distribution-row b{color:var(--vino-3);font-size:.87rem;line-height:1.3}
-    .distribution-row span{min-width:72px;text-align:right;color:var(--vino);font-weight:900}
+    .stats-value{min-width:62px;text-align:right;color:var(--vino);font-size:.92rem;font-weight:900}
+
+    .distribution-chart{
+      padding:14px;border:1px solid var(--linea);border-radius:15px;
+      background:linear-gradient(180deg,#fff,var(--crema));
+    }
+    .distribution-head{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:start;margin-bottom:10px}
+    .distribution-title{color:var(--vino-3);font-size:.84rem;font-weight:820;line-height:1.35}
+    .distribution-number{min-width:82px;text-align:right;color:var(--vino);font-size:.86rem;font-weight:900;white-space:nowrap}
+    .distribution-track{height:24px;border-radius:999px;background:#eadfd8;overflow:hidden;position:relative;box-shadow:inset 0 1px 3px rgba(75,13,33,.09)}
+    .distribution-fill{
+      width:0;height:100%;min-width:0;border-radius:inherit;
+      display:flex;align-items:center;justify-content:flex-end;padding-right:9px;
+      background:linear-gradient(90deg,var(--oro),var(--vino-2),var(--vino));
+      color:#fff;font-size:.72rem;font-weight:900;transition:width .9s cubic-bezier(.2,.75,.2,1)
+    }
+    .distribution-fill.zero{padding-right:0}
+    .distribution-foot{display:flex;justify-content:space-between;gap:10px;margin-top:7px;color:var(--gris);font-size:.72rem;font-weight:750}
     .participants-section{margin-top:18px;padding-top:18px;border-top:1px solid var(--linea)}
     .participants-head{display:flex;justify-content:space-between;gap:12px;align-items:end;margin-bottom:13px}
     .participants-head h4{margin:0;color:var(--vino-3)}
@@ -590,7 +604,7 @@
         <div class="stats-summary" id="statsSummary"></div>
         <div class="stats-grid">
           <article class="stats-box">
-            <h4>Promedio institucional por dimensión</h4>
+            <h4>Promedio institucional por dimensión (%)</h4>
             <div class="stats-dimension-list" id="statsDimensions"></div>
           </article>
           <article class="stats-box">
@@ -1102,21 +1116,40 @@
 
       const dimensionsData=Array.isArray(data.dimensiones)?data.dimensiones:[];
       document.getElementById('statsDimensions').innerHTML=dimensionsData.length
-        ? dimensionsData.map(item=>`
+        ? dimensionsData.map(item=>{
+            const pct=Math.max(0,Math.min(100,Number(item.porcentaje||0)));
+            return `
           <div class="stats-dimension-row">
             <div class="stats-dimension-label">${escapeHtml(String(item.titulo||''))}</div>
-            <div class="stats-track"><div class="stats-fill" data-width="${Number(item.porcentaje||0)}%"></div></div>
-            <div class="stats-value">${Number(item.promedio||0)}/${Number(item.maximo||0)}</div>
-          </div>`).join('')
+            <div class="stats-track" role="img" aria-label="${escapeHtml(String(item.titulo||''))}: ${pct}%">
+              <div class="stats-fill" data-width="${pct}%"></div>
+            </div>
+            <div class="stats-value">${pct}%</div>
+          </div>`;
+          }).join('')
         : '<div class="stats-empty">Todavía no existen datos suficientes.</div>';
 
       const distribution=Array.isArray(data.distribucion)?data.distribucion:[];
       document.getElementById('statsDistribution').innerHTML=distribution.length
-        ? distribution.map(item=>`
-          <div class="distribution-row">
-            <b>${escapeHtml(String(item.titulo||''))}</b>
-            <span>${Number(item.cantidad||0)} · ${Number(item.porcentaje||0)}%</span>
-          </div>`).join('')
+        ? distribution.map(item=>{
+            const pct=Math.max(0,Math.min(100,Number(item.porcentaje||0)));
+            const count=Math.max(0,Number(item.cantidad||0));
+            const participantWord=count===1?'docente':'docentes';
+            return `
+          <div class="distribution-chart">
+            <div class="distribution-head">
+              <div class="distribution-title">${escapeHtml(String(item.titulo||''))}</div>
+              <div class="distribution-number">${count} · ${pct}%</div>
+            </div>
+            <div class="distribution-track" role="img" aria-label="${escapeHtml(String(item.titulo||''))}: ${count} ${participantWord}, ${pct}%">
+              <div class="distribution-fill ${pct===0?'zero':''}" data-width="${pct}%">${pct>=14?pct+'%':''}</div>
+            </div>
+            <div class="distribution-foot">
+              <span>${count} ${participantWord}</span>
+              <span>del total participante</span>
+            </div>
+          </div>`;
+          }).join('')
         : '<div class="stats-empty">Todavía no existen resultados registrados.</div>';
 
       const names=Array.isArray(data.nombres)?data.nombres:[];
@@ -1131,6 +1164,7 @@
       document.body.classList.add('stats-view');
       requestAnimationFrame(()=>{
         document.querySelectorAll('#statsDimensions .stats-fill').forEach(bar=>bar.style.width=bar.dataset.width);
+        document.querySelectorAll('#statsDistribution .distribution-fill').forEach(bar=>bar.style.width=bar.dataset.width);
       });
       window.scrollTo({top:0,left:0,behavior:'smooth'});
       showToast(`Estadística actualizada: ${participants} participantes y promedio global de ${averagePct}%.`,'success');
