@@ -201,6 +201,15 @@
     body.result-view .page-shell{width:min(1180px,calc(100% - 28px));margin:26px auto 48px}
     body.result-view .result-panel{margin-top:0}
 
+    /* La estadística general se muestra como una página independiente. */
+    body.stats-view .hero,
+    body.stats-view .first-page-only,
+    body.stats-view .stepper,
+    body.stats-view #evaluationForm,
+    body.stats-view #resultPanel{display:none!important}
+    body.stats-view .page-shell{width:min(1180px,calc(100% - 28px));margin:26px auto 48px}
+    body.stats-view #generalStatsPanel{display:block!important;margin-top:0}
+
     .result-panel{display:none;margin-top:22px;overflow:hidden}
     .result-panel.show{display:block;animation:resultIn .55s ease both}
     .result-hero{
@@ -244,6 +253,72 @@
     .summary-chart h4{margin:0;color:var(--vino-3);font-size:.95rem;line-height:1.3}
     .summary-chart p{margin:0;color:var(--gris);font-size:.82rem;line-height:1.42}
 
+
+    .result-actions{
+      display:flex;justify-content:center;flex-wrap:wrap;gap:12px;margin-top:20px
+    }
+    .general-stats{
+      display:none;margin-top:20px;padding:0;overflow:hidden;
+      border:1px solid rgba(109,23,49,.12);border-radius:22px;background:#fff;
+      box-shadow:0 12px 35px rgba(72,34,45,.08)
+    }
+    .general-stats.show{display:block;animation:resultIn .45s ease both}
+    .stats-header{
+      display:flex;justify-content:space-between;gap:18px;align-items:center;
+      padding:24px 26px;color:#fff;background:linear-gradient(135deg,var(--vino-3),var(--vino))
+    }
+    .stats-header h3{margin:0 0 5px;font-size:clamp(1.3rem,2.5vw,1.9rem)}
+    .stats-header p{margin:0;color:#f0e0e5;line-height:1.5}
+    .stats-header-actions{display:flex;flex-direction:column;gap:9px;align-items:stretch;flex:0 0 auto}
+    .stats-updated{
+      padding:10px 13px;border-radius:12px;
+      background:rgba(255,255,255,.1);font-size:.82rem;font-weight:800;text-align:center
+    }
+    .btn-stats-light{
+      min-height:44px;padding:0 14px;border:1px solid rgba(255,255,255,.35);
+      border-radius:12px;background:rgba(255,255,255,.12);color:#fff;font-weight:850
+    }
+    .btn-stats-light:hover{background:rgba(255,255,255,.2);transform:translateY(-1px)}
+    .stats-content{padding:22px}
+    .stats-summary{
+      display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin-bottom:18px
+    }
+    .stats-card{
+      min-height:126px;padding:17px;border:1px solid var(--linea);border-radius:17px;
+      background:linear-gradient(180deg,#fff,var(--crema));display:flex;flex-direction:column;justify-content:center
+    }
+    .stats-card .stats-icon{font-size:1.35rem;margin-bottom:8px}
+    .stats-card strong{display:block;color:var(--vino-3);font-size:1.72rem;line-height:1.05}
+    .stats-card span{display:block;margin-top:7px;color:var(--gris);font-size:.82rem;font-weight:750;line-height:1.35}
+    .stats-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:18px}
+    .stats-box{padding:20px;border:1px solid var(--linea);border-radius:18px;background:#fff}
+    .stats-box h4{margin:0 0 15px;color:var(--vino-3);font-size:1.05rem}
+    .stats-dimension-list,.stats-distribution{display:grid;gap:12px}
+    .stats-dimension-row{display:grid;grid-template-columns:minmax(150px,1fr) 2fr auto;gap:10px;align-items:center}
+    .stats-dimension-label{font-size:.84rem;font-weight:780;line-height:1.3}
+    .stats-track{height:11px;border-radius:999px;background:#eee5df;overflow:hidden}
+    .stats-fill{height:100%;width:0;border-radius:inherit;background:linear-gradient(90deg,var(--oro),var(--vino));transition:width .8s ease}
+    .stats-value{min-width:52px;text-align:right;color:var(--vino);font-size:.84rem;font-weight:850}
+    .distribution-row{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;padding:11px 12px;border-radius:13px;background:var(--crema)}
+    .distribution-row b{color:var(--vino-3);font-size:.87rem;line-height:1.3}
+    .distribution-row span{min-width:72px;text-align:right;color:var(--vino);font-weight:900}
+    .participants-section{margin-top:18px;padding-top:18px;border-top:1px solid var(--linea)}
+    .participants-head{display:flex;justify-content:space-between;gap:12px;align-items:end;margin-bottom:13px}
+    .participants-head h4{margin:0;color:var(--vino-3)}
+    .participants-head small{color:var(--gris)}
+    .participant-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+    .participant-name{
+      display:flex;align-items:center;gap:9px;min-height:48px;padding:10px 12px;
+      border:1px solid #e5d8cd;border-radius:13px;background:#fffdf9;
+      color:var(--tinta);font-size:.84rem;font-weight:760;line-height:1.3
+    }
+    .participant-name::before{
+      content:"✓";display:grid;place-items:center;width:25px;height:25px;flex:0 0 auto;
+      border-radius:50%;background:var(--verde-claro);color:var(--verde);font-weight:900
+    }
+    .stats-empty{padding:24px;text-align:center;color:var(--gris);font-weight:750}
+    .stats-note{margin:15px 0 0;color:var(--gris);font-size:.78rem;line-height:1.5}
+
     .toast{
       position:fixed;right:18px;bottom:18px;z-index:200;
       max-width:min(420px,calc(100% - 36px));padding:14px 17px;border-radius:14px;background:#26313a;color:#fff;box-shadow:0 15px 35px rgba(0,0,0,.25);
@@ -265,9 +340,11 @@
 
     @media (max-width:900px){
       .hero{grid-template-columns:1fr}.teacher-art{max-width:275px}
-      .intro-grid,.result-details{grid-template-columns:1fr}
+      .intro-grid,.result-details,.stats-grid{grid-template-columns:1fr}
       .question-card{grid-template-columns:1fr}
       .result-hero{grid-template-columns:auto 1fr}.result-badge{grid-column:1/-1;max-width:none}
+      .stats-summary{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .participant-list{grid-template-columns:repeat(2,minmax(0,1fr))}
     }
     @media (max-width:640px){
       .page-shell{width:min(100% - 18px,1180px);margin-top:14px}
@@ -283,12 +360,18 @@
       .result-hero{grid-template-columns:1fr;text-align:center}.score-ring{margin:auto}
       .bar-row{grid-template-columns:1fr auto}.bar-track{grid-column:1/-1;grid-row:2}
       .summary-charts{grid-template-columns:1fr}
+      .stats-header{align-items:flex-start;flex-direction:column}
+      .stats-header-actions{width:100%}
+      .stats-updated{width:100%;text-align:left}
+      .stats-summary,.participant-list{grid-template-columns:1fr}
+      .stats-dimension-row{grid-template-columns:1fr auto}
+      .stats-track{grid-column:1/-1;grid-row:2}
     }
 
     @media print{
       @page{size:letter;margin:1.25cm}
       body{background:white;font-size:10pt}
-      .stepper,.nav-actions,.toast,.confetti{display:none!important}
+      .stepper,.nav-actions,.result-actions,.general-stats,.toast,.confetti{display:none!important}
       .page-shell{width:100%;margin:0}
       .hero{box-shadow:none;border-radius:0;padding:22px;grid-template-columns:1fr auto}
       .teacher-art{width:150px;animation:none}
@@ -483,6 +566,48 @@
           <div class="summary-charts" id="summaryCharts"></div>
         </article>
       </div>
+
+      <div class="result-actions">
+        <button class="btn btn-primary" type="button" id="generalStatsButton">
+          📊 Ir a la estadística general
+        </button>
+      </div>
+    </section>
+
+    <section class="general-stats" id="generalStatsPanel" aria-live="polite">
+      <div class="stats-header">
+        <div>
+          <h3>📈 Estadística general del personal participante</h3>
+          <p>Resumen actualizado con el registro más reciente de cada docente.</p>
+        </div>
+        <div class="stats-header-actions">
+          <div class="stats-updated" id="statsUpdated">Sin consultar</div>
+          <button class="btn-stats-light" type="button" id="refreshStatsButton">↻ Actualizar datos</button>
+          <button class="btn-stats-light" type="button" id="backToResultButton">← Volver a mi resultado</button>
+        </div>
+      </div>
+      <div class="stats-content">
+        <div class="stats-summary" id="statsSummary"></div>
+        <div class="stats-grid">
+          <article class="stats-box">
+            <h4>Promedio institucional por dimensión</h4>
+            <div class="stats-dimension-list" id="statsDimensions"></div>
+          </article>
+          <article class="stats-box">
+            <h4>Distribución de resultados</h4>
+            <div class="stats-distribution" id="statsDistribution"></div>
+          </article>
+        </div>
+        <div class="participants-section">
+          <div class="participants-head">
+            <h4>Docentes que han participado hasta el momento</h4>
+            <small id="participantsCount"></small>
+          </div>
+          <div class="participant-list" id="participantList"></div>
+          <p class="stats-note">Para los promedios generales se considera únicamente el envío más reciente de cada docente. Los nombres se muestran en orden alfabético.</p>
+        </div>
+      </div>
+    </section>
     </section>
   </main>
 
@@ -583,12 +708,19 @@
     const teacherName = document.getElementById('teacherName');
     const saveStatus = document.getElementById('saveStatus');
     const resultPanel = document.getElementById('resultPanel');
+    const generalStatsButton = document.getElementById('generalStatsButton');
+    const generalStatsPanel = document.getElementById('generalStatsPanel');
+    const refreshStatsButton = document.getElementById('refreshStatsButton');
+    const backToResultButton = document.getElementById('backToResultButton');
     const toast = document.getElementById('toast');
     const storageKey = 'autoevaluacionDocenteJMM_2025_2026';
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbylHKcHxaktsjDINlCmA3lJFaEv87PUgFRE0AHQRQ9PxiMcSqDf576rSD2WkhtL3eIKgw/exec';
     const totalItems = dimensions.reduce((sum,d)=>sum+d.items.length,0); // 32
     const maxScore = totalItems * 4; // 128
     let currentStep = 0;
     let saveTimer;
+    let isSubmitting = false;
+    let isLoadingStats = false;
 
     function escapeHtml(text=''){
       return text.replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
@@ -742,7 +874,7 @@
     }
 
     function resetFormState(){
-      document.body.classList.remove('result-view','after-first-page');
+      document.body.classList.remove('result-view','stats-view','after-first-page');
       clearTimeout(saveTimer);
       safeStorageRemove(storageKey);
       form.reset();
@@ -755,6 +887,15 @@
         if(counter) counter.textContent='0';
       });
       resultPanel.classList.remove('show');
+      generalStatsPanel.classList.remove('show');
+      document.getElementById('statsSummary').innerHTML='';
+      document.getElementById('statsDimensions').innerHTML='';
+      document.getElementById('statsDistribution').innerHTML='';
+      document.getElementById('participantList').innerHTML='';
+      document.getElementById('participantsCount').textContent='';
+      document.getElementById('statsUpdated').textContent='Sin consultar';
+      generalStatsButton.disabled=false;
+      generalStatsButton.textContent='📊 Ir a la estadística general';
       document.getElementById('dimensionBars').innerHTML='';
       document.getElementById('summaryCharts').innerHTML='';
       document.getElementById('scoreValue').textContent='0';
@@ -788,6 +929,211 @@
         message='Este resultado constituye un punto de partida para definir un plan de mejora profesional gradual y viable, con prioridades claras, metas alcanzables, acompañamiento colegiado y seguimiento periódico. Conviene concentrar los esfuerzos en las dimensiones con menor valoración, sin dejar de reconocer y aprovechar las fortalezas ya desarrolladas.';
       }
       return {total,percentage,interpretation,message};
+    }
+
+    async function sendEvaluationToSheets(){
+      if(isSubmitting) return;
+
+      const submitButton=form.querySelector('button[type="submit"]');
+      const data=collectData();
+      const body=new URLSearchParams();
+      body.set('action','guardar');
+      body.set('teacherName',data.teacherName);
+      body.set('responses',JSON.stringify(data.responses));
+      body.set('reflections',JSON.stringify(data.reflections));
+      body.set('savedAt',data.savedAt);
+
+      isSubmitting=true;
+      if(submitButton){
+        submitButton.disabled=true;
+        submitButton.dataset.originalText=submitButton.textContent;
+        submitButton.textContent='Guardando resultados…';
+      }
+      showToast('Guardando la autoevaluación en Google Sheets…');
+
+      try{
+        const response=await fetch(SCRIPT_URL,{
+          method:'POST',
+          body,
+          redirect:'follow'
+        });
+
+        const responseText=await response.text();
+        let result;
+        try{
+          result=JSON.parse(responseText);
+        }catch(error){
+          throw new Error('Google Sheets devolvió una respuesta que no pudo interpretarse.');
+        }
+
+        if(!response.ok || !result || result.ok!==true){
+          throw new Error(result?.mensaje || 'No fue posible guardar los resultados.');
+        }
+
+        renderResults();
+        safeStorageRemove(storageKey);
+        const folio=result.folio ? ` Folio: ${result.folio}` : '';
+        showToast(`Resultados guardados correctamente.${folio}`,'success');
+      }catch(error){
+        const message=error && error.message
+          ? error.message
+          : 'No fue posible conectar con Google Sheets.';
+        showToast(`${message} Revise la implementación de Apps Script y la conexión a internet.`,'error');
+      }finally{
+        isSubmitting=false;
+        if(submitButton){
+          submitButton.disabled=false;
+          submitButton.textContent=submitButton.dataset.originalText || '✓ Finalizar y ver resultado';
+        }
+      }
+    }
+
+
+    function openGeneralStatisticsPage(){
+      document.body.classList.remove('result-view','after-first-page');
+      document.body.classList.add('stats-view');
+      generalStatsPanel.classList.add('show');
+      window.scrollTo({top:0,left:0,behavior:'smooth'});
+      loadGeneralStatistics();
+    }
+
+    function returnToIndividualResult(){
+      document.body.classList.remove('stats-view','after-first-page');
+      document.body.classList.add('result-view');
+      window.scrollTo({top:0,left:0,behavior:'smooth'});
+    }
+
+
+    function requestJsonp(action){
+      return new Promise((resolve,reject)=>{
+        const callbackName=`sheetsCallback_${Date.now()}_${Math.random().toString(36).slice(2)}`;
+        const script=document.createElement('script');
+        const timeout=setTimeout(()=>{
+          cleanup();
+          reject(new Error('La consulta de la estadística tardó demasiado tiempo.'));
+        },20000);
+
+        function cleanup(){
+          clearTimeout(timeout);
+          script.remove();
+          try{delete window[callbackName]}catch(error){window[callbackName]=undefined}
+        }
+
+        window[callbackName]=data=>{
+          cleanup();
+          resolve(data);
+        };
+
+        script.onerror=()=>{
+          cleanup();
+          reject(new Error('No fue posible conectar con Google Sheets.'));
+        };
+
+        const separator=SCRIPT_URL.includes('?')?'&':'?';
+        script.src=`${SCRIPT_URL}${separator}action=${encodeURIComponent(action)}&callback=${encodeURIComponent(callbackName)}&_=${Date.now()}`;
+        document.head.appendChild(script);
+      });
+    }
+
+
+    async function loadGeneralStatistics(){
+      if(isLoadingStats) return;
+
+      isLoadingStats=true;
+      generalStatsButton.disabled=true;
+      refreshStatsButton.disabled=true;
+      refreshStatsButton.textContent='Consultando datos…';
+      showToast('Consultando los registros almacenados…');
+
+      try{
+        const data=await requestJsonp('estadistica');
+        if(!data || data.ok!==true){
+          throw new Error(data?.mensaje || 'La estadística general no pudo consultarse.');
+        }
+        renderGeneralStatistics(data);
+      }catch(error){
+        const message=error && error.message
+          ? error.message
+          : 'No fue posible consultar la estadística general.';
+        showToast(message,'error');
+      }finally{
+        isLoadingStats=false;
+        generalStatsButton.disabled=false;
+        refreshStatsButton.disabled=false;
+        refreshStatsButton.textContent='↻ Actualizar datos';
+      }
+    }
+
+    function renderGeneralStatistics(data){
+      if(!data || data.ok!==true){
+        showToast('La respuesta de la estadística general no es válida.','error');
+        return;
+      }
+
+      const participants=Number(data.participantes||0);
+      const totalTeachers=Number(data.totalDocentes||0);
+      const participationPct=Number(data.porcentajeParticipacion||0);
+      const averageTotal=Number(data.promedioTotal||0);
+      const averagePct=Number(data.promedioPorcentaje||0);
+      const totalRecords=Number(data.totalRegistros||0);
+
+      document.getElementById('statsUpdated').textContent=`Actualizada: ${escapeHtml(String(data.actualizado||''))}`;
+      document.getElementById('statsSummary').innerHTML=`
+        <div class="stats-card">
+          <div class="stats-icon">👥</div>
+          <strong>${participants}</strong>
+          <span>docentes participantes de ${totalTeachers}</span>
+        </div>
+        <div class="stats-card">
+          <div class="stats-icon">📌</div>
+          <strong>${participationPct}%</strong>
+          <span>avance de participación institucional</span>
+        </div>
+        <div class="stats-card">
+          <div class="stats-icon">📊</div>
+          <strong>${averageTotal}</strong>
+          <span>promedio general de ${maxScore} puntos</span>
+        </div>
+        <div class="stats-card">
+          <div class="stats-icon">🗂️</div>
+          <strong>${totalRecords}</strong>
+          <span>envíos recibidos en total</span>
+        </div>`;
+
+      const dimensionsData=Array.isArray(data.dimensiones)?data.dimensiones:[];
+      document.getElementById('statsDimensions').innerHTML=dimensionsData.length
+        ? dimensionsData.map(item=>`
+          <div class="stats-dimension-row">
+            <div class="stats-dimension-label">${escapeHtml(String(item.titulo||''))}</div>
+            <div class="stats-track"><div class="stats-fill" data-width="${Number(item.porcentaje||0)}%"></div></div>
+            <div class="stats-value">${Number(item.promedio||0)}/${Number(item.maximo||0)}</div>
+          </div>`).join('')
+        : '<div class="stats-empty">Todavía no existen datos suficientes.</div>';
+
+      const distribution=Array.isArray(data.distribucion)?data.distribucion:[];
+      document.getElementById('statsDistribution').innerHTML=distribution.length
+        ? distribution.map(item=>`
+          <div class="distribution-row">
+            <b>${escapeHtml(String(item.titulo||''))}</b>
+            <span>${Number(item.cantidad||0)} · ${Number(item.porcentaje||0)}%</span>
+          </div>`).join('')
+        : '<div class="stats-empty">Todavía no existen resultados registrados.</div>';
+
+      const names=Array.isArray(data.nombres)?data.nombres:[];
+      document.getElementById('participantsCount').textContent=
+        `${names.length} ${names.length===1?'participante':'participantes'}`;
+      document.getElementById('participantList').innerHTML=names.length
+        ? names.map(name=>`<div class="participant-name">${escapeHtml(String(name))}</div>`).join('')
+        : '<div class="stats-empty">Aún no se han registrado participantes.</div>';
+
+      generalStatsPanel.classList.add('show');
+      document.body.classList.remove('result-view','after-first-page');
+      document.body.classList.add('stats-view');
+      requestAnimationFrame(()=>{
+        document.querySelectorAll('#statsDimensions .stats-fill').forEach(bar=>bar.style.width=bar.dataset.width);
+      });
+      window.scrollTo({top:0,left:0,behavior:'smooth'});
+      showToast(`Estadística actualizada: ${participants} participantes y promedio global de ${averagePct}%.`,'success');
     }
 
     function renderResults(){
@@ -827,7 +1173,7 @@
         </div>`;
 
       resultPanel.classList.add('show');
-      document.body.classList.remove('after-first-page');
+      document.body.classList.remove('stats-view','after-first-page');
       document.body.classList.add('result-view');
       requestAnimationFrame(()=>document.querySelectorAll('.bar-fill').forEach(bar=>bar.style.width=bar.dataset.width));
       window.scrollTo({top:0,left:0,behavior:'smooth'});
@@ -920,9 +1266,12 @@
 
     form.addEventListener('submit',e=>{
       e.preventDefault();
-      if(validateAll())renderResults();
+      if(validateAll())sendEvaluationToSheets();
     });
 
+    generalStatsButton.addEventListener('click',openGeneralStatisticsPage);
+    refreshStatsButton.addEventListener('click',loadGeneralStatistics);
+    backToResultButton.addEventListener('click',returnToIndividualResult);
     teacherName.addEventListener('change',()=>{updateProgress();scheduleSave()});
     renderForm();
     resetFormState();
